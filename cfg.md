@@ -1,6 +1,18 @@
 npm init (create package.json)
+
 npm install express (install express in dependencies)
+
 npm i -D nodemon (install nodemon under development dependencies)
+
 update index.js with initial setup
+
 update scripts in package.json
-test
+
+install engines/handlebars (Most popular: pug, EJS, handlebars)
+
+1.  npm i express-handlebars
+2.  connect to index.js
+
+split page/pages into separate files
+
+add materialize cdn
