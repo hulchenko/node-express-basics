@@ -16,3 +16,5 @@ install engines/handlebars (Most popular: pug, EJS, handlebars)
 split page/pages into separate files
 
 add materialize cdn
+
+npm install uuid (library for IDs)
