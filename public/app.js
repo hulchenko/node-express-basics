@@ -1,5 +1,5 @@
 const toCurrency = (price) => {
-  return new Intl.NumberFormat('en-EN', {
+  return new Intl.NumberFormat('en-US', {
     currency: 'cad',
     style: 'currency',
   }).format(price);
@@ -17,7 +17,7 @@ if ($cart) {
     if (event.target.classList.contains('js-remove')) {
       const id = event.target.dataset.id;
 
-      fetch('/cart/remove' + id, {
+      fetch('/cart/remove/' + id, {
         method: 'delete',
       })
         .then((res) => res.json())
