@@ -33,7 +33,7 @@ router.get('/:id', async (req, res) => {
   const course = await Course.getById(req.params.id);
   res.render('course', {
     layout: 'empty',
-    title: `Name: ${course.title}`,
+    title: `Course ${course.title}`,
     course,
   });
 });
