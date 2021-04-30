@@ -18,3 +18,9 @@ split page/pages into separate files
 add materialize cdn
 
 npm install uuid (library for IDs)
+
+connect to MongoDB
+
+npm install mongoose
+
+npm install @handlebars/allow-prototype-access

@@ -1,84 +1,116 @@
-const uuid = require('uuid/v4')
-const fs = require('fs')
-const path = require('path')
+//--------------------- LOCAL -----------------------
 
-class Course {
-  constructor(title, price, img) {
-    this.title = title
-    this.price = price
-    this.img = img
-    this.id = uuid()
-  }
+// const uuid = require('uuid/v4')
+// const fs = require('fs')
+// const path = require('path')
 
-  toJSON() {
-    return {
-      title: this.title,
-      price: this.price,
-      img: this.img,
-      id: this.id
-    }
-  }
+// class Course {
+//   constructor(title, price, img) {
+//     this.title = title
+//     this.price = price
+//     this.img = img
+//     this.id = uuid()
+//   }
 
-  static async update(course) {
-    const courses = await Course.getAll()
+//   toJSON() {
+//     return {
+//       title: this.title,
+//       price: this.price,
+//       img: this.img,
+//       id: this.id
+//     }
+//   }
 
-    const idx = courses.findIndex(c => c.id === course.id)
-    courses[idx] = course
+//   static async update(course) {
+//     const courses = await Course.getAll()
 
-    return new Promise((resolve, reject) => {
-      fs.writeFile(
-        path.join(__dirname, '..', 'data', 'courses.json'),
-        JSON.stringify(courses),
-        (err) => {
-          if (err) {
-            reject(err)
-          } else {
-            resolve()
-          }
-        }
-      )
-    })
-  }
+//     const idx = courses.findIndex(c => c.id === course.id)
+//     courses[idx] = course
 
-  async save() {
-    const courses = await Course.getAll()
-    courses.push(this.toJSON())
+//     return new Promise((resolve, reject) => {
+//       fs.writeFile(
+//         path.join(__dirname, '..', 'data', 'courses.json'),
+//         JSON.stringify(courses),
+//         (err) => {
+//           if (err) {
+//             reject(err)
+//           } else {
+//             resolve()
+//           }
+//         }
+//       )
+//     })
+//   }
 
-    return new Promise((resolve, reject) => {
-      fs.writeFile(
-        path.join(__dirname, '..', 'data', 'courses.json'),
-        JSON.stringify(courses),
-        (err) => {
-          if (err) {
-            reject(err)
-          } else {
-            resolve()
-          }
-        }
-      )
-    })
-  }
+//   async save() {
+//     const courses = await Course.getAll()
+//     courses.push(this.toJSON())
 
-  static getAll() {
-    return new Promise((resolve, reject) => {
-      fs.readFile(
-        path.join(__dirname, '..', 'data', 'courses.json'),
-        'utf-8',
-        (err, content) => {
-          if (err) {
-            reject(err)
-          } else {
-            resolve(JSON.parse(content))
-          }
-        }
-      )
-    })
-  }
+//     return new Promise((resolve, reject) => {
+//       fs.writeFile(
+//         path.join(__dirname, '..', 'data', 'courses.json'),
+//         JSON.stringify(courses),
+//         (err) => {
+//           if (err) {
+//             reject(err)
+//           } else {
+//             resolve()
+//           }
+//         }
+//       )
+//     })
+//   }
 
-  static async getById(id) {
-    const courses = await Course.getAll()
-    return courses.find(c => c.id === id)
-  }
-}
+//   static getAll() {
+//     return new Promise((resolve, reject) => {
+//       fs.readFile(
+//         path.join(__dirname, '..', 'data', 'courses.json'),
+//         'utf-8',
+//         (err, content) => {
+//           if (err) {
+//             reject(err)
+//           } else {
+//             resolve(JSON.parse(content))
+//           }
+//         }
+//       )
+//     })
+//   }
 
-module.exports = Course
+//   static async getById(id) {
+//     const courses = await Course.getAll()
+//     return courses.find(c => c.id === id)
+//   }
+// }
+
+// module.exports = Course
+
+//-------------- MONGOOSE > MONGO_DB -----------------
+
+const { Schema, model } = require('mongoose');
+
+const courseSchema = new Schema({
+  title: {
+    type: String,
+    required: true,
+  },
+  price: {
+    type: Number,
+    required: true,
+  },
+  img: String,
+  userId: {
+    type: Schema.Types.ObjectId,
+    ref: 'User',
+  },
+});
+
+courseSchema.method('toClient', function () {
+  const course = this.toObject();
+
+  course.id = course._id;
+  delete course._id;
+  return course;
+});
+
+module.exports = model('Course', courseSchema);
