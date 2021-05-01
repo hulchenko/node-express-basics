@@ -24,3 +24,7 @@ connect to MongoDB
 npm install mongoose
 
 npm install @handlebars/allow-prototype-access
+
+npm install express-session (auth package)
+
+npm install connect-mongodb-session (sync package between local session and mongoDB)

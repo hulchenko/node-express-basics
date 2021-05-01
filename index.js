@@ -6,9 +6,12 @@ const cardRoutes = require('./routes/card');
 const addRoutes = require('./routes/add');
 const ordersRoutes = require('./routes/orders');
 const coursesRoutes = require('./routes/courses');
+const authRoutes = require('./routes/auth');
 const User = require('./models/user');
+const varMiddleware = require('./middleware/variables');
 const Handlebars = require('handlebars');
 const exphbs = require('express-handlebars');
+const session = require('express-session');
 const {
   allowInsecurePrototypeAccess,
 } = require('@handlebars/allow-prototype-access');
@@ -26,27 +29,27 @@ app.engine('hbs', hbs.engine); //registering the engine
 app.set('view engine', 'hbs'); //setting up the engine
 app.set('views', 'views');
 
-app.use(async (req, res, next) => {
-  try {
-    const user = await User.findById('608c5144c8d18f201424ba48');
-    req.user = user;
-    next();
-  } catch (e) {
-    console.log(e);
-  }
-});
-
 app.use(express.static(path.join(__dirname, 'public'))); //add static folder for css files
 app.use(express.urlencoded({ extended: true }));
+app.use(
+  session({
+    secret: 'some secret value',
+    resave: false,
+    saveUninitialized: false,
+  })
+);
+app.use(varMiddleware);
 
 app.use('/', homeRoutes);
 app.use('/add', addRoutes);
 app.use('/courses', coursesRoutes);
 app.use('/card', cardRoutes);
 app.use('/orders', ordersRoutes);
+app.use('/auth', authRoutes);
 
 const PORT = process.env.PORT || 3000;
 
+//mongo & local connection
 async function start() {
   try {
     const url =
@@ -56,15 +59,6 @@ async function start() {
       useFindAndModify: false,
       useUnifiedTopology: true,
     });
-    const candidate = await User.findOne();
-    if (!candidate) {
-      const user = new User({
-        email: 'hulchenko@shaw.ca',
-        name: 'Vadym',
-        cart: { items: [] },
-      });
-      await user.save();
-    }
     app.listen(PORT, () => {
       console.log(`Server is running on port ${PORT}`);
     });
