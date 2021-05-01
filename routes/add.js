@@ -1,8 +1,9 @@
 const { Router } = require('express');
 const Course = require('../models/course');
+const auth = require('../middleware/auth');
 const router = Router();
 
-router.get('/', (req, res) => {
+router.get('/', auth, (req, res) => {
   //BEFORE ENGINE:
   //   res.sendFile(path.join(__dirname, 'views', 'about.html'));
   res.render('add', {
@@ -11,7 +12,7 @@ router.get('/', (req, res) => {
   });
 });
 
-router.post('/', async (req, res) => {
+router.post('/', auth, async (req, res) => {
   // LOCAL: const course = new Course(req.body.title, req.body.price, req.body.img);
   const course = new Course({
     title: req.body.title,

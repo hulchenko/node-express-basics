@@ -25,6 +25,10 @@ npm install mongoose
 
 npm install @handlebars/allow-prototype-access
 
-npm install express-session (auth package)
+npm install express-session (auth middleware)
 
-npm install connect-mongodb-session (sync package between local session and mongoDB)
+npm install connect-mongodb-session (sync middleware between local session and mongoDB)
+
+npm install bcryptjs(middleware to encrypt passwords)
+
+npm install csurf (security middleware)
