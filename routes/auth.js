@@ -7,6 +7,8 @@ router.get('/login', async (req, res) => {
   res.render('auth/login', {
     title: 'Authorization',
     isLogin: true,
+    loginError: req.flash('loginError'),
+    registerError: req.flash('registerError'),
   });
 });
 
@@ -34,9 +36,11 @@ router.post('/login', async (req, res) => {
           res.redirect('/');
         });
       } else {
+        req.flash('loginError', 'Incorrect Password');
         res.redirect('/auth/login#login');
       }
     } else {
+      req.flash('loginError', "User doesn't exist");
       res.redirect('/auth/login#login');
     }
   } catch (e) {
@@ -49,6 +53,7 @@ router.post('/register', async (req, res) => {
     const { email, password, repeat, name } = req.body;
     const candidate = await User.findOne({ email });
     if (candidate) {
+      req.flash('registerError', 'Email Already in Use.');
       res.redirect('/auth/login#register');
     } else {
       const hashPassword = await bcrypt.hash(password, 10); //new user password will be hashed with the salt length of 10

@@ -32,3 +32,5 @@ npm install connect-mongodb-session (sync middleware between local session and m
 npm install bcryptjs(middleware to encrypt passwords)
 
 npm install csurf (security middleware / token validator)
+
+npm install connect-flash (middleware for on-screen errors)
