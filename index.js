@@ -1,5 +1,6 @@
 const express = require('express'); //connect express
 const path = require('path');
+const csrf = require('csurf');
 const mongoose = require('mongoose');
 const homeRoutes = require('./routes/home');
 const cardRoutes = require('./routes/card');
@@ -46,6 +47,7 @@ app.use(
     store: store,
   })
 );
+app.use(csrf());
 app.use(varMiddleware);
 app.use(userMiddleware);
 
