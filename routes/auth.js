@@ -1,6 +1,8 @@
 const { Router } = require('express');
 const bcrypt = require('bcryptjs');
 const router = Router();
+const { validationResult } = require('express-validator/check');
+const { registerValidators } = require('../utils/validators');
 const User = require('../models/user');
 
 router.get('/login', async (req, res) => {
@@ -48,10 +50,17 @@ router.post('/login', async (req, res) => {
   }
 });
 
-router.post('/register', async (req, res) => {
+router.post('/register', registerValidators, async (req, res) => {
   try {
-    const { email, password, repeat, name } = req.body;
+    const { email, password, confirm, name } = req.body;
     const candidate = await User.findOne({ email });
+
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      req.flash('registerError', errors.array()[0].msg);
+      return res.status(422).redirect('/auth/login#register'); //display error to user and redirect back to login section
+    }
+
     if (candidate) {
       req.flash('registerError', 'Email Already in Use.');
       res.redirect('/auth/login#register');
