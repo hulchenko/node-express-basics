@@ -36,3 +36,5 @@ npm install csurf (security middleware / token validator)
 npm install connect-flash (middleware for on-screen errors)
 
 npm install express-validator (middleware to validate login input)
+
+npm install multer (package for file uploading)
