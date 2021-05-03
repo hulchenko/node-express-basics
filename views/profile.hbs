@@ -1,0 +1,40 @@
+<h1>My Profile</h1>
+
+<div class="row">
+    <div class="col s6">
+        <img 
+        
+        class='avatar'
+        src="https://i.imgur.com/WT0L7xO.jpg"
+        alt=""
+        
+        >
+
+        <p>No img yet.</p>
+    </div>
+
+    <div class="col s6">
+        <form action="/profile" method='POST'>
+
+        <p>Your email: <strong>{{user.email}}</strong></p>
+
+        <div class="input-field">
+            <input id="name" name="name" type="text" class="validate" required min="1" value='{{user.name}}'>
+            <label for="name">Your name</label>
+            <span class="helper-text" data-error="Name field cannot be empty"></span>
+        </div>
+
+                <div class="file-field input-field">
+                        <div class="btn">
+                                <span>Change Img</span>
+                                <input type="file" name='avatar'>
+                        </div>
+                            <div class="file-path-wrapper">
+                                <input class="file-path validate" type="text">
+                            </div>
+                </div>
+                <input type="hidden" name='_csrf' value='{{csrf}}'>
+                <button type='submit' class='btn'>Edit</button>
+        </form>
+    </div>
+</div>

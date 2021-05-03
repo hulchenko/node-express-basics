@@ -21,6 +21,14 @@
             {{else}}
               <li><a href="/add">Add Course</a></li>
             {{/if}} 
+            
+
+            {{#if isProfile}}
+              <li class="active"><a href="/profile">My Profile</a></li>
+            {{else}}
+              <li><a href="/profile">My Profile</a></li>
+            {{/if}} 
+
 
             {{#if isCard}}
               <li class="active"><a href="/card">Cart</a></li>
