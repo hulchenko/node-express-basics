@@ -23,5 +23,7 @@
 * Flash and express-validator on-screen errors
 * Encrypted passwords
 * My profile page(w/ Edit and File Uploader)
+* Cart (w/ add/delete items)
+* Orders Page (w/ receipt paragraph)
 * Compressed
 
