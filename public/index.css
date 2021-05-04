@@ -1,5 +1,27 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap');
+
+html {
+  font-family: 'Roboto Mono', monospace;
+}
+
 .nav-wrapper {
-  padding: 0 2rem;
+  padding: 0 4rem;
+  background-color: royalblue;
+}
+
+.container h5 {
+  margin-bottom: 2rem;
+}
+
+.container p {
+  width: 70%;
+  margin: 0 auto;
+}
+
+.container h1 {
+  text-align: center;
+  padding: 2rem;
+  font-weight: bold;
 }
 
 .price {

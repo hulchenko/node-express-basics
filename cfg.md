@@ -38,3 +38,7 @@ npm install connect-flash (middleware for on-screen errors)
 npm install express-validator (middleware to validate login input)
 
 npm install multer (package for file uploading)
+
+npm i compression (middleware to compress static files for the deployment)
+
+heroku deployment

@@ -14,6 +14,7 @@ const varMiddleware = require('./middleware/variables');
 const userMiddleware = require('./middleware/user');
 const errorHandler = require('./middleware/error');
 const fileMiddleware = require('./middleware/file');
+const compression = require('compression');
 const Handlebars = require('handlebars');
 const exphbs = require('express-handlebars');
 const session = require('express-session');
@@ -57,6 +58,7 @@ app.use(csrf());
 app.use(flash());
 app.use(varMiddleware);
 app.use(userMiddleware);
+app.use(compression());
 
 app.use('/', homeRoutes);
 app.use('/add', addRoutes);
