@@ -41,4 +41,4 @@ npm install multer (package for file uploading)
 
 npm i compression (middleware to compress static files for the deployment)
 
-heroku deployment
+heroku deployment(update)
